@@ -1,33 +1,16 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: Introduction
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+The Glide API is a RESTful API that allows you to interact with the Glide platform programatically. These are the developer docs for version 2 of the API.
 
-## Welcome
+## Previous versions
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+<Warning>This version of the Glide API is **only available for Glide Big Tables**. An attempt to use this API with any other data source will return an error.</Warning>
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+This Glide API differs from previous versions in that:
 
-## Authentication
-
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
-
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```
+- It only operates on Glide Big Tables data sources
+- It does not require an `appId` with every call
+- It is designed to be more performant
+- It is capable of ingesting much larger data sets

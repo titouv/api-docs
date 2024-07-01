@@ -1,6 +1,6 @@
 {
   "openapi": "https://functions.prod.internal.glideapps.com/api/swagger.json",
-  "name": "Glide API",
+  "name": "Glide Developer Documentation",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
@@ -25,35 +25,28 @@
     "name": "Dashboard",
     "url": "https://go.glideapps.com"
   },
-  "tabs": [
+  "redirects": [
     {
-      "name": "API Reference",
-      "url": "api-reference"
-    },
-    {
-      "name": "Client Libraries",
-      "url": "client-libraries"
-    },
-    {
-      "name": "Postman Collections",
-      "url": "postman"
+      "source": "/index",
+      "destination": "/api-reference/introduction"
     }
   ],
+  "primaryTab": {
+    "name": "API v2 Reference"
+  },
+  "tabs": [],
   "navigation": [
     {
-      "group": "Getting Started",
+      "group": "General",
       "pages": [
-        "introduction"
+        "api-reference/introduction",
+        "api-reference/authentication",
+        "api-reference/versioning",
+        "api-reference/errors"
       ]
     },
     {
-      "group": "Essentials",
-      "pages": [
-        "api-reference/introduction"
-      ]
-    },
-    {
-      "group": "Glide APIv2 Reference",
+      "group": "Endpoints",
       "pages": [
         "api-reference/get-apime",
         "api-reference/get-apiapps",
