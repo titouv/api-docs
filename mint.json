@@ -1,6 +1,6 @@
 {
   "openapi": "https://functions.prod.internal.glideapps.com/api/swagger.json",
-  "name": "Starter Kit",
+  "name": "Glide API",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
@@ -17,63 +17,55 @@
   },
   "topbarLinks": [
     {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "name": "Glide User Docs",
+      "url": "https://www.glideapps.com/docs"
     }
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "url": "https://go.glideapps.com"
   },
   "tabs": [
     {
       "name": "API Reference",
       "url": "api-reference"
-    }
-  ],
-  "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
     },
     {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
+      "name": "Client Libraries",
+      "url": "client-libraries"
     },
     {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "name": "Postman Collections",
+      "url": "postman"
     }
   ],
   "navigation": [
     {
-      "group": "Get Started",
-      "pages": ["introduction", "quickstart", "development"]
+      "group": "Getting Started",
+      "pages": [
+        "introduction"
+      ]
     },
     {
       "group": "Essentials",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "api-reference/introduction"
       ]
     },
     {
-      "group": "API Documentation",
-      "pages": ["api-reference/introduction"]
-    },
-    {
-      "group": "Endpoint Examples",
+      "group": "Glide APIv2 Reference",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "api-reference/get-apime",
+        "api-reference/get-apiapps",
+        "api-reference/get-apiapps-tables",
+        "api-reference/get-apiapps-tables-1",
+        "api-reference/get-apiapps-tables-schema",
+        "api-reference/get-apiapps-tables-rows",
+        "api-reference/post-apiapps-tables-rows",
+        "api-reference/delete-apiapps-tables-rows",
+        "api-reference/get-apiapps-tables-rows-1",
+        "api-reference/delete-apiapps-tables-rows-1",
+        "api-reference/patch-apiapps-tables-rows"
       ]
     }
   ],
