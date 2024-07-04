@@ -1,4 +1,34 @@
 ---
 title: Errors
-description: 'Common error structures and responses'
+description: 'Common error scenarios and responses'
 ---
+
+## Error Responses
+
+All error responses will follow the following format with a top-level `error` object.
+
+```json
+{
+  "error": {
+    "message": "<error message>"
+  }
+}
+```
+
+## Invalid Auth Token
+
+Using an auth token that does not exist or is incorrect will result in a `404` response status.
+
+```bash
+curl --request GET \
+  --url https://functions.prod.internal.glideapps.com/api/tables \
+  --header 'Authorization: Bearer INVALID'
+```
+
+```json
+{
+  "error": {
+    "message": "API key not found, or duplicate IN****ID"
+  }
+}
+```

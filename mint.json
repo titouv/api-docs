@@ -41,8 +41,7 @@
       "pages": [
         "api-reference/v2/introduction",
         "api-reference/v2/authentication",
-        "api-reference/v2/versioning",
-        "api-reference/errors"
+        "api-reference/v2/errors"
       ]
     },
     {

@@ -2,3 +2,23 @@
 title: Authentication
 description: 'Authenticating to the Glide API'
 ---
+
+## Format
+
+The Glide API uses bearer token authentication in the request header in the form:
+
+`Authorization: Bearer <token>`
+
+`<token>` should be replaced with your actual token which you can find in the Glide Data Editor.
+
+<Card title="Your API Auth Token" icon="link" href="https://www.glideapps.com/docs/essentials/data-sources/getting-started-with-the-glide-api#how-do-i-access-glide-api">
+  You can find your API auth token in the Glide Data Editor
+</Card>
+
+## Token Behavior
+
+Please be aware of the following as it relates to your API auth token:
+
+* It should be treated as a secret (i.e. it should not be checked into source control or exposed in client environments)
+* It is unique to your Glide user
+* It is scoped to your Glide team, so it has access to all applications and data in your team
