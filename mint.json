@@ -1,5 +1,5 @@
 {
-  "openapi": "https://functions.staging.internal.glideapps.com/api/swagger.json",
+  "openapi": "swagger.json",
   "name": "Glide API v2 Documentation",
   "logo": {
     "dark": "/logo/dark.svg",
@@ -47,13 +47,8 @@
     {
       "group": "Endpoints",
       "pages": [
-        "api-reference/v2/get-apitables",
-        "api-reference/v2/post-apitables",
-        "api-reference/v2/post-apitables-row",
-        "api-reference/v2/put-apitables",
-        "api-reference/v2/post-apistashes-",
-        "api-reference/v2/post-apistashes",
-        "api-reference/v2/delete-apistashes"
+        "api-reference/v2/get-tables",
+        "api-reference/v2/post-stashes"
       ]
     },
     {

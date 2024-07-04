@@ -1,0 +1,12 @@
+---
+title: Create Import Stash
+openapi: post /api/stashes
+---
+
+When uploading a large dataset it is necessary to break it into smaller chunks for performance and reliability reasons. We call this process "stashing".
+
+A "stash" is a temporary location where data can be uploaded in bulk (much like a bucket in cloud terminology). Once all the data has been added to the stash, across several API calls, all the data in the stash can then be used in a table as a single atomic operation.
+
+This specific endpoint creates a new stash location and returns its ID. No data is uploaded in this call.
+
+<Tip>To see how to use stashing to perform a bulk import, please see our [Bulk Import guide](/api-reference/v2/examples/bulk-import).</Tip>
