@@ -1,6 +1,6 @@
 {
-  "openapi": "https://functions.prod.internal.glideapps.com/api/swagger.json",
-  "name": "Glide Developer Documentation",
+  "openapi": "https://functions.staging.internal.glideapps.com/api/swagger.json",
+  "name": "Glide API v2 Documentation",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
@@ -28,37 +28,39 @@
   "redirects": [
     {
       "source": "/index",
-      "destination": "/api-reference/introduction"
+      "destination": "/api-reference/v2/introduction"
     }
   ],
   "primaryTab": {
-    "name": "API v2 Reference"
+    "name": "Reference"
   },
   "tabs": [],
   "navigation": [
     {
       "group": "General",
       "pages": [
-        "api-reference/introduction",
-        "api-reference/authentication",
-        "api-reference/versioning",
+        "api-reference/v2/introduction",
+        "api-reference/v2/authentication",
+        "api-reference/v2/versioning",
         "api-reference/errors"
       ]
     },
     {
       "group": "Endpoints",
       "pages": [
-        "api-reference/get-apime",
-        "api-reference/get-apiapps",
-        "api-reference/get-apiapps-tables",
-        "api-reference/get-apiapps-tables-1",
-        "api-reference/get-apiapps-tables-schema",
-        "api-reference/get-apiapps-tables-rows",
-        "api-reference/post-apiapps-tables-rows",
-        "api-reference/delete-apiapps-tables-rows",
-        "api-reference/get-apiapps-tables-rows-1",
-        "api-reference/delete-apiapps-tables-rows-1",
-        "api-reference/patch-apiapps-tables-rows"
+        "api-reference/v2/get-apitables",
+        "api-reference/v2/post-apitables",
+        "api-reference/v2/post-apitables-row",
+        "api-reference/v2/put-apitables",
+        "api-reference/v2/post-apistashes-",
+        "api-reference/v2/post-apistashes",
+        "api-reference/v2/delete-apistashes"
+      ]
+    },
+    {
+      "group": "Examples",
+      "pages": [
+        "api-reference/v2/examples/bulk-import"
       ]
     }
   ],

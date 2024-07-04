@@ -1,0 +1,270 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "",
+        "version": ""
+    },
+    "components": {
+        "schemas": {},
+        "responses": {},
+        "parameters": {},
+        "examples": {},
+        "requestBodies": {},
+        "headers": {},
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "description": "Bearer authentication header of the form Bearer `<token>`, where `<token>` is your [auth token](/api-reference/v2/authentication)."
+            }
+        },
+        "links": {},
+        "callbacks": {}
+    },
+    "paths": {
+        "/api/tables": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "List of tables successfully retrieved",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "description": "A collection of table objects as id/name pairs",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "ID of the table, e.g., `2a1bad8b-cf7c-44437-b8c1-e3782df6`"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "description": "Name of the table, e.g., `Invoices`"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "id",
+                                                    "name"
+                                                ],
+                                                "additionalProperties": false
+                                            },
+                                            "example": [
+                                                {
+                                                    "id": "2a1bad8b-cf7c-44437-b8c1-e3782df6",
+                                                    "name": "Invoices"
+                                                },
+                                                {
+                                                    "id": "93a19-cf7c-44437-b8c1-e9acbbb",
+                                                    "name": "Line Items"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Auth token not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "description": "Error message",
+                                                    "example": "API key not found, or duplicate eec*******069"
+                                                }
+                                            },
+                                            "required": [
+                                                "message"
+                                            ],
+                                            "additionalProperties": false
+                                        }
+                                    },
+                                    "required": [
+                                        "error"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "tableID": {
+                                                    "type": "string",
+                                                    "description": "ID of the created table"
+                                                },
+                                                "rowIDs": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "description": "Row IDs of added rows"
+                                                }
+                                            },
+                                            "required": [
+                                                "tableID",
+                                                "rowIDs"
+                                            ],
+                                            "additionalProperties": false
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "details": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "message": {
+                                                                "type": "string"
+                                                            },
+                                                            "location": {
+                                                                "type": "string"
+                                                            },
+                                                            "locationType": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "message",
+                                                            "location",
+                                                            "locationType"
+                                                        ],
+                                                        "additionalProperties": false
+                                                    }
+                                                }
+                                            },
+                                            "required": [
+                                                "message"
+                                            ],
+                                            "additionalProperties": false
+                                        }
+                                    },
+                                    "required": [
+                                        "error"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": ""
+                    }
+                },
+                "operationId": "Create table",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {},
+                                        "additionalProperties": false
+                                    },
+                                    "rows": {
+                                        "anyOf": [
+                                            {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "additionalProperties": {}
+                                                }
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "$stashID": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "$stashID"
+                                                ],
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "schema",
+                                    "rows"
+                                ],
+                                "additionalProperties": false
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        {
+            "BearerAuth": []
+        }
+    ],
+    "tags": [],
+    "servers": [
+        {
+            "description": "Production",
+            "url": "https://functions.prod.internal.glideapps.com"
+        },
+        {
+            "description": "Staging",
+            "url": "https://functions.staging.internal.glideapps.com"
+        }
+    ]
+}
