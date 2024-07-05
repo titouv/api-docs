@@ -1,15 +1,11 @@
 {
   "openapi": "openapi/swagger.json",
-  "name": "Glide API Documentation",
-  "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
-  },
+  "name": "Glide API Docs",
   "favicon": "/logo/favicon.svg",
   "colors": {
     "primary": "#18BED4",
     "light": "#B7B2F0",
-    "dark": "#0A4C55",
+    "dark": "#18BED4",
     "anchors": {
       "from": "#D7E779",
       "to": "#07C983"
@@ -22,7 +18,7 @@
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
+    "name": "Open Glide",
     "url": "https://go.glideapps.com"
   },
   "redirects": [
@@ -67,8 +63,14 @@
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "youtube": "https://www.youtube.com/glideapps",
+    "x": "https://x.com/glideapps",
+    "github": "https://github.com/glideapps",
+    "linkedin": "https://www.linkedin.com/company/glideapps/"
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true,
+    "raiseIssue": true
   }
 }
