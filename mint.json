@@ -1,17 +1,17 @@
 {
-  "openapi": "swagger.json",
-  "name": "Glide API v2 Documentation",
+  "openapi": "openapi/swagger.json",
+  "name": "Glide API Documentation",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/logo/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#18BED4",
+    "light": "#B7B2F0",
+    "dark": "#0A4C55",
     "anchors": {
-      "from": "#0D9373",
+      "from": "#D7E779",
       "to": "#07C983"
     }
   },
@@ -39,16 +39,24 @@
     {
       "group": "General",
       "pages": [
-        "api-reference/v2/introduction",
-        "api-reference/v2/authentication",
-        "api-reference/v2/errors"
+        "api-reference/v2/general/introduction",
+        "api-reference/v2/general/authentication",
+        "api-reference/v2/general/rate-limits",
+        "api-reference/v2/general/errors"
       ]
     },
     {
-      "group": "Endpoints",
+      "group": "Tables",
       "pages": [
-        "api-reference/v2/get-tables",
-        "api-reference/v2/post-stashes"
+        "api-reference/v2/tables/get-tables",
+        "api-reference/v2/tables/post-tables"
+      ]
+    },
+    {
+      "group": "Stashes",
+      "pages": [
+        "api-reference/v2/stashing/introduction",
+        "api-reference/v2/stashing/post-stashes-serial"
       ]
     },
     {

@@ -1,0 +1,60 @@
+---
+title: Introduction
+description: Stashing large datasets for use with the Glide API
+---
+
+When working with large datasets it is necessary to break it into smaller chunks for performance and reliability. We call this process "stashing".
+
+<Tip>To see how to use stashing to perform a bulk import, please see our [Bulk Import guide](/api-reference/v2/examples/bulk-import).</Tip>
+
+## What is Stashing?
+
+Stashing is the process by which a large dataset is broken into smaller subsets for uploading to Glide. Each subset is uploaded to Glide independently (either sequentially or in parallel) to form the complete dataset.
+
+Once all data has been uploaded to the stash, the stash can then be referenced in other API calls to refer to the full dataset. This eliminates the need to include the entire dataset in the request itself, which may not be feasible due to its size.
+
+## When to Use Stashing
+
+You should use stashing when:
+
+* You have a large dataset that you want to upload to Glide. Anything larger than 5mb should be broken up into smaller subsets and stashed.
+* You want to perform an atomic operation using a large dataset. For example, you may want to perform an import of data into an existing table but don't want users to see the intermediate state of the import or incremental updates while they're using their application.
+
+## Core Concepts
+
+The main components of a stash are its ID and the individual chunked data subsets which are identified by a serial. Both the id and serial are values you define.
+
+The stash ID is a unique identifier for the stash that you define from the relevant information of your domain. This is often a combination of temporal information and a domain identifier. For instance: `20240215-job32` or `2024-07-05T15:17:50Z-customer93ak`.
+
+Each subset of data that is uploaded to the stash is identified by a serial. If the order of each data subset is important to the overall datset, you should use the serial to represent the order of loading (e.g., `1`, `2`, etc...).
+
+If the order of each data subset is not important, then you can use a random serial for each subset like a UUID: `123e4567-e89b-12d3-a456-426655440000`. The only requirement is that the serial must be unique for each subset.
+
+## Referencing a Stash
+
+Once a stash, and all its parts, has been uploaded you can use the stash ID in other API calls to refer to the full dataset instead of including the entire dataset itself. Think of it as a reference to all the data in the stash.
+
+For instance, instead of including all the row data in a request to create a table, you can instead reference the stash ID:
+
+```json
+{
+    "rows": {
+        "$stashID": "20240215-job32"
+    }
+}
+```
+
+Please see the specific endpoint's documentation for more details on how to use a stash reference:
+
+* [Create Table](/api-reference/v2/tables/post-tables)
+
+TODO
+
+* [Overwrite Table](/api-reference/v2/tables/put-tables)
+* [Add Rows to Table](/api-reference/v2/tables/post-tables-rows)
+
+## Use Cases
+
+Stashing is a general purpose capability, but it is particular useful in a few known use-cases. Please see our tutorials for more details:
+
+* [Bulk Import](/api-reference/v2/examples/bulk-import)
