@@ -1,5 +1,5 @@
 {
-  "openapi": "openapi/swagger.json",
+  "openapi": "/openapi/swagger.json",
   "name": "Glide API Docs",
   "favicon": "/logo/favicon.svg",
   "colors": {
@@ -70,7 +70,6 @@
   },
   "feedback": {
     "thumbsRating": true,
-    "suggestEdit": true,
     "raiseIssue": true
   }
 }

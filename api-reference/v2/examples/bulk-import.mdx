@@ -3,39 +3,44 @@ title: Bulk Import
 description: 'Importing large datasets into a Glide Big Table'
 ---
 
-When importing large datasets into a Glide Big Table it is necessary to upload the data in stages. This eliminates the volatility of long-running requests and allows for higher performance by parallelizing the upload process.
+When importing large datasets into a Glide Big Table it is necessary to upload the data in stages. This eliminates the volatility of long-running requests and allows for higher performance by parallelizing the upload process. This process is called "stashing".
+
+<Tip>
+  Please read our [introduction to stashing](/api-reference/v2/stashing/introduction) to understand how stashing works before looking at bulk imports specifically.
+</Tip>
+
 
 ## Overview
 
 The general sequence of operations for a large import is:
 
 <Steps>
-  <Step title="Create import identifier">
-    Create a stable import ID that will associate all subsequent data uploads.
+  <Step title="Create stash identifier">
+    Create a stable stash ID that will associate all subsequent data uploads.
   </Step>
-  <Step title="Upload data in chunks">
-    Upload data in chunks of 1,000 to 10,000 rows, using the import ID from step one.
+  <Step title="Upload data subsets">
+    Upload data in stages of 500 to 1,000 rows, using the stash ID from step one.
   </Step>
   <Step title="Finalize import">
-    Once all data has been uploaded, use the import ID to import the full dataset as a single atomic table operation.
+    Once all data has been uploaded, use the stash ID to import the full dataset as a single atomic table operation.
   </Step>
 </Steps>
 
-## Create Import Identifier
+## Create Stash ID
 
-To simplify the coordination, parallelization, and idempotency of the upload process, the import ID is a value that you create from the relevant information of your domain.
+To simplify the coordination, parallelization, and idempotency of the upload process, the stash ID is a value that you create from the relevant information of your domain.
 
-For instance, a daily import process might have an import ID of `20240501-import`. Or, an import specific to a single customer might have an import ID of `customer-381-import`.
+For instance, a daily import process might have a stash ID of `20240501-import`. Or, an import specific to a single customer might have a stash ID of `customer-381-import`.
 
-You are responsible for ensuring that the import ID is unique and stable across associated uploads.
+You are responsible for ensuring that the stash ID is unique and stable across associated uploads.
 
-## Upload Data in Chunks
+## Upload Data
 
-Once you have a stable import ID, you can use the `POST /v2/imports/` endpoint to upload the data in chunks.
+Once you have a stable stash ID, you can use the [stash data endpoint](/api-reference/v2/stashing/post-stashes-serial) to upload the data in stages.
 
-Upload chunks can be run in parallel to speed up the upload of large dataset, just be sure to use the same importID across uploads to ensure the final data set is complete.
+Upload stages can be run in parallel to speed up the upload of large dataset, just be sure to use the same stash ID across uploads to ensure the final data set is complete.
 
-As an example, the following upload request bodies will create a dataset of two rows total within the import ID `20240501-import`.
+As an example, the following [stash](/api-reference/v2/stashing/post-stashes-serial) request bodies will create a final dataset consisting of the two rows identified by the stash ID `20240501-import`.
 
 ```json
 {
@@ -69,18 +74,28 @@ As an example, the following upload request bodies will create a dataset of two 
 
 ## Finalize Import
 
-Once all the data to be imported has been uploaded, you can use the import ID in one of Glide API's table endpoints to import the full dataset in a single atomic operation.
-
-For instance...
-
-### Append to Table
-
-To append all the data of an import to an existing table you can use the `POST /tables/{{tableID}}/rows` endpoint.
-
-### Overwrite Table
-
-To overwrite all data of a table with the data of an import you can use the `PUT /tables/{{tableID}}` endpoint.
+Once all the data to be imported has been uploaded, you can use the stash ID in one of Glide API's table endpoints to import the full dataset in a single atomic operation...
 
 ### Create New Table
 
-To create a new table with the data of an import you can use the `POST /tables/` endpoint.
+To create a table with the data of the stash ID `20240501-import` you can use the [create table](/api-reference/v2/tables/post-tables) endpoint with the `stashID` reference of `20240501-import` instead of the actual row values
+
+```json
+{
+    "name": "New Table",
+    "schema": {
+        "columns": [ ... ]
+    },
+    "rows": {
+        "$stashID": "20240501-import"
+    }
+}
+```
+
+### Append to Table
+
+[TODO]
+
+### Overwrite Table
+
+[TODO]
