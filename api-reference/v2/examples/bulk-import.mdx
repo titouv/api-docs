@@ -42,33 +42,31 @@ Upload stages can be run in parallel to speed up the upload of large dataset, ju
 
 As an example, the following [stash](/api-reference/v2/stashing/post-stashes-serial) request bodies will create a final dataset consisting of the two rows identified by the stash ID `20240501-import`.
 
-```json
-{
-    "data": {
-        "importID": "20240501-import",
-        "rows": [
-            {
-                "Name": "Alex",
-                "Age": 30,
-                "Birthday": "2024-07-03T10:24:08.285Z"
-            }
-        ]
-    }
-}
-```
+`POST /stashes/20240501-import/1`
 
 ```json
 {
-    "data": {
-        "importID": "20240501-import",
-        "rows": [
-            {
-                "Name": "TomTom",
-                "Age": 26,
-                "Birthday": "2024-07-03T10:27:43.265Z"
-            }
-        ]
-    }
+    "data": [
+        {
+            "Name": "Alex",
+            "Age": 30,
+            "Birthday": "2024-07-03T10:24:08.285Z"
+        }
+    ]
+}
+```
+
+`POST /stashes/20240501-import/2`
+
+```json
+{
+    "data": [
+        {
+            "Name": "TomTom",
+            "Age": 26,
+            "Birthday": "2024-07-03T10:27:43.265Z"
+        }
+    ]
 }
 ```
 
