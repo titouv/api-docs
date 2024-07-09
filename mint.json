@@ -46,7 +46,8 @@
       "pages": [
         "api-reference/v2/tables/get-tables",
         "api-reference/v2/tables/post-tables",
-        "api-reference/v2/tables/put-tables"
+        "api-reference/v2/tables/put-tables",
+        "api-reference/v2/tables/post-table-rows"
       ]
     },
     {
@@ -57,9 +58,9 @@
       ]
     },
     {
-      "group": "Examples",
+      "group": "Tutorials",
       "pages": [
-        "api-reference/v2/examples/bulk-import"
+        "api-reference/v2/tutorials/bulk-import"
       ]
     }
   ],

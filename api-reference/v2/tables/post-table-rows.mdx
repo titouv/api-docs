@@ -1,0 +1,42 @@
+---
+title: Add Rows to Table
+openapi: post /api/tables/{tableID}/rows
+---
+
+Add row data to an existing Glide Big Table.
+
+## Examples
+
+<AccordionGroup>
+  <Accordion title="Add Rows Inline">
+    If you want to add a small number of rows to a table, you can do so by providing the data inline in the `rows` field (being sure that row object structure matches the table schema):
+
+    ```json
+    {
+        "rows": [
+            {
+                "fullName": "Alex Bard",
+                "ageInYears": 30,
+                "hiredOn": "2021-07-03"
+            }
+        ]
+    }
+    ```
+
+    However, this is only appropriate for relatively small dataset (a few hundred rows or less, depending on schema complexity). If you need to work with a larger dataset you should utilize stashing.
+  </Accordion>
+
+  <Accordion title="Add Rows from Stash">
+    [Stashing](/api-reference/v2/stashing/introduction) is our process for handling the upload of large datasets. Break down your dataset into smaller, more manageable, pieces and [upload them to a single stash ID](/api-reference/v2/stashing/post-stashes-serial). 
+
+    Then, to add all the row data in a stash to the table in a single atomic operation, use the `$stashID` reference in the `rows` field instead of providing the data inline:
+
+    ```json
+    {
+        "rows": {
+            "$stashID": "20240215-job32"
+        }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>

@@ -93,10 +93,27 @@ To create a table with the data of the stash ID `20240501-import` you can use th
 }
 ```
 
-### Append to Table
+### Add Rows to Table
 
-[TODO]
+To add data to an existing table you can use the [add rows to table](/api-reference/v2/tables/post-tables-rows) endpoint with the `stashID` reference of `20240501-import` instead of the actual row values.
+
+```json
+{
+    "rows": {
+        "$stashID": "20240501-import"
+    }
+}
+```
+
 
 ### Overwrite Table
 
-[TODO]
+To reset an existing table's data you can use the [overwrite table](/api-reference/v2/tables/put-tables) endpoint with the `stashID` reference of `20240501-import` instead of the actual row values.
+
+```json
+{
+    "rows": {
+        "$stashID": "20240501-import"
+    }
+}
+```
