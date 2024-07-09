@@ -40,39 +40,42 @@ Once you have a stable stash ID, you can use the [stash data endpoint](/api-refe
 
 Upload stages can be run in parallel to speed up the upload of large dataset, just be sure to use the same stash ID across uploads to ensure the final data set is complete.
 
-As an example, the following [stash](/api-reference/v2/stashing/post-stashes-serial) request bodies will create a final dataset consisting of the two rows identified by the stash ID `20240501-import`.
+As an example, the following [stash](/api-reference/v2/stashing/post-stashes-serial) requests will create a final dataset consisting of the two rows identified by the stash ID `20240501-import`.
 
-`POST /stashes/20240501-import/1`
-
-```json
-{
-    "data": [
+<Tabs>
+    <Tab title="POST /stashes/20240501-import/1">
+        ```json
         {
-            "Name": "Alex",
-            "Age": 30,
-            "Birthday": "2024-07-03T10:24:08.285Z"
+            "data": [
+                {
+                    "Name": "Alex",
+                    "Age": 30,
+                    "Birthday": "2024-07-03T10:24:08.285Z"
+                }
+            ]
         }
-    ]
-}
-```
-
-`POST /stashes/20240501-import/2`
-
-```json
-{
-    "data": [
+        ```
+    </Tab>
+    <Tab title="POST /stashes/20240501-import/2">
+        ```json
         {
-            "Name": "TomTom",
-            "Age": 26,
-            "Birthday": "2024-07-03T10:27:43.265Z"
+            "data": [
+                {
+                    "Name": "TomTom",
+                    "Age": 26,
+                    "Birthday": "2024-07-03T10:27:43.265Z"
+                }
+            ]
         }
-    ]
-}
-```
+        ```
+    </Tab>
+</Tabs>
+
+<Note>The trailing path parameters of `1` and `2` are the serial ids which distinguish and order the two uploads within the stash.</Note>
 
 ## Finalize Import
 
-Once all the data to be imported has been uploaded, you can use the stash ID in one of Glide API's table endpoints to import the full dataset in a single atomic operation...
+Once all the data to be imported has been uploaded, you can use the stash ID in one of Glide API's table endpoints to import the full dataset in a single atomic operation.
 
 ### Create New Table
 

@@ -5,44 +5,41 @@ openapi: post /api/tables
 
 Create a new Glide Big Table, define its structure, and (optionally) populate it with data.
 
-## Create Table w/ Row Data
+## Examples
 
-If you want to create a table and populate it with an initial dataset, you can do so by providing the data inline in the `rows` field (being sure that row object structure matches the table schema):
+<AccordionGroup>
+  <Accordion title="Create Table w/ Row Data">
+    If you want to create a table and populate it with an initial dataset, you can do so by providing the data inline in the `rows` field (being sure that row object structure matches the table schema):
 
-```json
-{
-    "name": Employees",
-    "schema": {
-        "columns": [
-            { "id": "fullName", "displayName": "Name", "type": "string" },
-            { "id": "ageInYears", "displayName": "Age", "type": "number" },
-            { "id": "hiredOn", "displayName": "Hired On", "type": "dateTime" }
+    ```json
+    {
+        "name": "Employees",
+        "schema": { ... },
+        "rows": [
+            {
+                "fullName": "Alex Bard",
+                "ageInYears": 30,
+                "hiredOn": "2021-07-03"
+            }
         ]
-    },
-    "rows": [
-        {
-            "fullName": "Alex Bard",
-            "ageInYears": 30,
-            "hiredOn": "2021-07-03"
-        }
-    ]
-}
-```
-
-However, this is only appropriate for relatively small initial datasets (around a few hundred rows or less, depending on schema complexity). If you need to work with a larger dataset you should utilize stashing.
-
-## Create Table from Stash
-
-[Stashing](/api-reference/v2/stashing/introduction) is our process for handling the upload of large datasets. Break down your dataset into smaller, more manageable, pieces and [upload them to a single stash ID](/api-reference/v2/stashing/post-stashes-serial). 
-
-Then, to create a table from a stash, you can use the `$stashID` reference in the `rows` field instead of providing the data inline:
-
-```json
-{
-    "name": "Employees",
-    "schema": { ... },
-    "rows": {
-        "$stashID": "20240215-job32"
     }
-}
-```
+    ```
+
+    However, this is only appropriate for relatively small initial datasets (around a few hundred rows or less, depending on schema complexity). If you need to work with a larger dataset you should utilize stashing.
+  </Accordion>
+  <Accordion title="Create Table from Stash">
+    [Stashing](/api-reference/v2/stashing/introduction) is our process for handling the upload of large datasets. Break down your dataset into smaller, more manageable, pieces and [upload them to a single stash ID](/api-reference/v2/stashing/post-stashes-serial). 
+
+    Then, to create a table from a stash, you can use the `$stashID` reference in the `rows` field instead of providing the data inline:
+
+    ```json
+    {
+        "name": "Employees",
+        "schema": { ... },
+        "rows": {
+            "$stashID": "20240215-job32"
+        }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>

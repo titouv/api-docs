@@ -104,7 +104,7 @@
                                                 "rowIDs"
                                             ],
                                             "additionalProperties": false,
-                                            "description": "A collection of row IDs of added rows",
+                                            "description": "The newly created table ID and IDs of all rows added",
                                             "example": {
                                                 "tableID": "2a1bad8b-cf7c-44437-b8c1-e3782df6",
                                                 "rowIDs": [
@@ -132,8 +132,8 @@
                                 "properties": {
                                     "name": {
                                         "type": "string",
-                                        "description": "Name of the table, e.g., `Invoices`",
-                                        "example": "Invoices"
+                                        "description": "Name of the table, e.g., `Employees`",
+                                        "example": "Employees"
                                     },
                                     "schema": {
                                         "type": "object",
