@@ -45,11 +45,12 @@
       "group": "Tables",
       "pages": [
         "api-reference/v2/tables/get-tables",
-        "api-reference/v2/tables/post-tables"
+        "api-reference/v2/tables/post-tables",
+        "api-reference/v2/tables/put-tables"
       ]
     },
     {
-      "group": "Stashes",
+      "group": "Stashing",
       "pages": [
         "api-reference/v2/stashing/introduction",
         "api-reference/v2/stashing/post-stashes-serial"

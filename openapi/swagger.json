@@ -153,7 +153,7 @@
                                                         },
                                                         "type": {
                                                             "type": "string",
-                                                            "description": "Type of the column. Can be one of: `string`, `number`, `dateTime`, `boolean`, `url`, `json`"
+                                                            "description": "Type of the column. Can be one of: `string`, `number`, `dateTime`, `boolean`, `uri`, `json`"
                                                         }
                                                     },
                                                     "required": [
@@ -228,6 +228,144 @@
                                     "schema"
                                 ],
                                 "additionalProperties": false
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tables/{tableID}": {
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "Table successfully overwritten",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "rowIDs": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "description": "Row IDs of added rows",
+                                                    "example": [
+                                                        "2a1bad8b-cf7c-44437-b8c1-e3782df6",
+                                                        "93a19-cf7c-44437-b8c1-e9acbbb"
+                                                    ]
+                                                }
+                                            },
+                                            "required": [
+                                                "rowIDs"
+                                            ],
+                                            "additionalProperties": false
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "Overwrite table",
+                "parameters": [
+                    {
+                        "name": "tableID",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "ID of the table to overwrite, e.g., `2a1bad8b-cf7c-44437-b8c1-e3782df6`"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "columns": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "string",
+                                                            "description": "Internal ID of the column, e.g., `name`. This value cannot be changed once created."
+                                                        },
+                                                        "displayName": {
+                                                            "type": "string",
+                                                            "description": "Human readable display name of the column, e.g., `Name`. Can be modified once created."
+                                                        },
+                                                        "type": {
+                                                            "type": "string",
+                                                            "description": "Type of the column. Can be one of: `string`, `number`, `dateTime`, `boolean`, `uri`, `json`"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "id",
+                                                        "type"
+                                                    ]
+                                                },
+                                                "description": "Collection of column definitions, in the order that they are to be displayed in the table"
+                                            }
+                                        },
+                                        "description": "The schema of the table as a collection of column definitions",
+                                        "additionalProperties": false
+                                    },
+                                    "rows": {
+                                        "anyOf": [
+                                            {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "additionalProperties": {}
+                                                },
+                                                "description": "A collection of row objects conforming to the schema of the table where keys are the column IDs and values are the column values:\n\n```json\n[\n\t{\n\t\t\"fullName\": \"Alex Bard\",\n\t\t\"ageInYears\": 30,\n\t\t\"hiredOn\": \"2021-07-03\"\n\t},\n\t{\n\t\t\"fullName\": \"Alicia Hines\",\n\t\t\"ageInYears\": 34,\n\t\t\"hiredOn\": \"2023-01-015\"\n\t}\n]\n```"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "$stashID": {
+                                                        "type": "string",
+                                                        "description": "ID of the stash whose row data should be used to populate the table, e.g., `20240215-job32`"
+                                                    }
+                                                },
+                                                "description": "A single reference to a stash whose row data should be used to populate the table",
+                                                "required": [
+                                                    "$stashID"
+                                                ],
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "example": {
+                                    "rows": [
+                                        {
+                                            "fullName": "Alex Bard",
+                                            "ageInYears": 30,
+                                            "hiredOn": "2021-07-03"
+                                        },
+                                        {
+                                            "fullName": "Alicia Hines",
+                                            "ageInYears": 34,
+                                            "hiredOn": "2023-01-015"
+                                        }
+                                    ]
+                                }
                             }
                         }
                     }
