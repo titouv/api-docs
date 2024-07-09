@@ -572,10 +572,6 @@
         {
             "description": "Production",
             "url": "https://functions.prod.internal.glideapps.com"
-        },
-        {
-            "description": "Staging",
-            "url": "https://functions.staging.internal.glideapps.com"
         }
     ]
 }

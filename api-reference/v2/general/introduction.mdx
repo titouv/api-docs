@@ -5,20 +5,21 @@ sidebarTitle: Introduction
 
 The Glide APIv2 is a RESTful API that allows you to programatically interact with the Glide platform. These are the developer docs for version 2 of the API, initially released in July of 2024.
 
-<Warning>This version of the Glide API **only accesses Glide Big Table data sources**. An attempt to use this API with any other data source will return an error.</Warning>
+<Warning>This API is currently in a public alpha state. Feedback is welcome. However, please be aware that **breaking changes are expected**!</Warning>
+
+## Functionality
+
+This version of the Glide API **only accesses Glide Big Table data sources**. An attempt to use this API with any other data source will return an error.
 
 ## Location
 
-The Glide API v2 is currently located at: `https://functions.staging.internal.glideapps.com/api/`.
-
-<Note>This location is expected to change before the API is released in general availability.</Note>
+The **temporary location** of the Glide API v2 is: `https://functions.staging.internal.glideapps.com/api/`.
 
 ## Previous Versions
 
 This Glide API v2 differs from previous versions in that it:
 
-- Is the most performant way to programatically interact with Glide
-- Is capable of ingesting much larger data sets
-- Includes advanced features to ensure data integrity and reliability (such as idempotency keys and date-based versioning)
-- Only operates on Glide Big Tables data sources
+- Is the most performant way to programatically interact with Glide Big Tables
+- Is capable of ingesting much larger data sets through the use of [stashing](/api-reference/v2/stashing/introduction)
 - Does not require application scoping (i.e., no `appId` is required)
+- Only operates on Glide Big Tables data sources

@@ -5,7 +5,7 @@ description: 'Common error scenarios and responses'
 
 ## Error Responses
 
-All error responses will follow the following format with a top-level `error` object.
+All error responses will follow the following format with a top-level `error` object and a `4XX` status code.
 
 ```json
 {
@@ -14,10 +14,6 @@ All error responses will follow the following format with a top-level `error` ob
   }
 }
 ```
-
-## Retrying Requests
-
-TODO
 
 ## Invalid Auth Token
 
@@ -36,13 +32,3 @@ curl --request GET \
   }
 }
 ```
-
-## Schema/Data Conflicts
-
-TODO
-
-## Table Not Found
-
-TODO
-
-## Incompatible Data Source
