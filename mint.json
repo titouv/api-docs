@@ -21,24 +21,13 @@
     "name": "Open Glide",
     "url": "https://go.glideapps.com"
   },
-  "redirects": [
-    {
-      "source": "/index",
-      "destination": "/api-reference/v2/introduction"
-    }
-  ],
-  "primaryTab": {
-    "name": "Reference"
-  },
-  "tabs": [],
   "navigation": [
     {
       "group": "General",
       "pages": [
         "api-reference/v2/general/introduction",
         "api-reference/v2/general/authentication",
-        "api-reference/v2/general/errors",
-        "api-reference/v2/general/changelog"
+        "api-reference/v2/general/errors"
       ]
     },
     {
@@ -61,6 +50,13 @@
       "group": "Tutorials",
       "pages": [
         "api-reference/v2/tutorials/bulk-import"
+      ]
+    },
+    {
+      "group": "Resources",
+      "pages": [
+        "api-reference/v2/resources/postman",
+        "api-reference/v2/resources/changelog"
       ]
     }
   ],

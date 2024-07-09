@@ -1,0 +1,28 @@
+---
+title: Glide API Postman Collection
+sidebarTitle: Postman
+---
+
+We have created a [Postman collection for the Glide API v2](https://www.postman.com/glideapps-internal/workspace/glide/collection/32369785-2375efc0-3be9-43bd-a134-bd430deb4c69?action=share&creator=32369785&active-environment=32369785-f7167028-954c-4563-8b72-365cf2d69b3c). This is useful if you want to execute the API from your own environment or perform a more rigorous exploration that possible from our documentation.
+
+[![Run collection in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/32369785-2375efc0-3be9-43bd-a134-bd430deb4c69?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D32369785-2375efc0-3be9-43bd-a134-bd430deb4c69%26entityType%3Dcollection%26workspaceId%3D992aee9a-f714-4dee-88e8-3ae9e11b159a#?env%5BGlide%20Production%5D=W3sia2V5IjoidG9rZW4iLCJ2YWx1ZSI6IiIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJzZWNyZXQiLCJzZXNzaW9uVmFsdWUiOiI3NzVhZGQ2OS00NTY1LTRiZWUtYjk1OC1hODMyZWM0ODA4NzQiLCJzZXNzaW9uSW5kZXgiOjB9LHsia2V5IjoiYmFzZVVybCIsInZhbHVlIjoiaHR0cHM6Ly9mdW5jdGlvbnMucHJvZC5pbnRlcm5hbC5nbGlkZWFwcHMuY29tL2FwaSIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJkZWZhdWx0Iiwic2Vzc2lvblZhbHVlIjoiaHR0cHM6Ly9mdW5jdGlvbnMucHJvZC5pbnRlcm5hbC5nbGlkZWFwcHMuY29tL2FwaSIsInNlc3Npb25JbmRleCI6MX1d)
+
+## Running in Postman
+
+Once you have forked the collection into your own Postman workspace using the button above, you should do the following before executing any requests:
+
+<Steps>
+    <Step title="Select Production Environment">
+        Select the "Glide Production" environment from the dropdown in the top right of the Postman window:
+        ![Select the Glide Production environment](/images/postman-select-env.jpg)
+    </Step>
+    <Step title="Add Glide API key">
+        Add your personal [Glide API key](/api-reference/v2/general/authentication) to the Glide Production environment as the current value of the `token` variable:
+        ![Add Glide API key](/images/postman-set-token.jpg)
+    </Step>
+    <Step title="Execute calls">
+       Navigate to any of the requests in the collection and click the "Send" button to execute the request.
+        ![Execute request](/images/postman-execute.jpg)
+        The request will be executed scoped to your Glide team using the Glide API key you set in the previous step.
+    </Step>
+</Steps>
