@@ -12,15 +12,17 @@ Add row data to an existing Glide Big Table.
     If you want to add a small number of rows to a table, you can do so by providing the data inline in the `rows` field (being sure that row object structure matches the table schema):
 
     ```json
-    {
-        "rows": [
-            {
-                "fullName": "Alex Bard",
-                "ageInYears": 30,
-                "hiredOn": "2021-07-03"
-            }
-        ]
-    }
+    [
+      {
+        "fullName": "Alex Bard",
+        "ageInYears": 30,
+        "hiredOn": "2021-07-03"
+      }, {
+        "fullName": "Alicia Hines",
+        "ageInYears": 34,
+        "hiredOn": "2023-01-015"
+      }
+    ]
     ```
 
     However, this is only appropriate for relatively small dataset (a few hundred rows or less, depending on schema complexity). If you need to work with a larger dataset you should utilize stashing.
@@ -33,9 +35,7 @@ Add row data to an existing Glide Big Table.
 
     ```json
     {
-        "rows": {
-            "$stashID": "20240215-job32"
-        }
+        "$stashID": "20240215-job32"
     }
     ```
   </Accordion>

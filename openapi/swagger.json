@@ -430,51 +430,42 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "rows": {
-                                        "anyOf": [
+                                "anyOf": [
+                                    {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "additionalProperties": {}
+                                        },
+                                        "description": "A collection of row objects conforming to the schema of the table where keys are the column IDs and values are the column values:\n\n```json\n[\n\t{\n\t\t\"fullName\": \"Alex Bard\",\n\t\t\"ageInYears\": 30,\n\t\t\"hiredOn\": \"2021-07-03\"\n\t},\n\t{\n\t\t\"fullName\": \"Alicia Hines\",\n\t\t\"ageInYears\": 34,\n\t\t\"hiredOn\": \"2023-01-015\"\n\t}\n]\n```",
+                                        "example": [
                                             {
-                                                "type": "array",
-                                                "items": {
-                                                    "type": "object",
-                                                    "additionalProperties": {}
-                                                },
-                                                "description": "A collection of row objects conforming to the schema of the table where keys are the column IDs and values are the column values:\n\n```json\n[\n\t{\n\t\t\"fullName\": \"Alex Bard\",\n\t\t\"ageInYears\": 30,\n\t\t\"hiredOn\": \"2021-07-03\"\n\t},\n\t{\n\t\t\"fullName\": \"Alicia Hines\",\n\t\t\"ageInYears\": 34,\n\t\t\"hiredOn\": \"2023-01-015\"\n\t}\n]\n```",
-                                                "example": [
-                                                    {
-                                                        "fullName": "Alex Bard",
-                                                        "ageInYears": 30,
-                                                        "hiredOn": "2021-07-03"
-                                                    },
-                                                    {
-                                                        "fullName": "Alicia Hines",
-                                                        "ageInYears": 34,
-                                                        "hiredOn": "2023-01-015"
-                                                    }
-                                                ]
+                                                "fullName": "Alex Bard",
+                                                "ageInYears": 30,
+                                                "hiredOn": "2021-07-03"
                                             },
                                             {
-                                                "type": "object",
-                                                "properties": {
-                                                    "$stashID": {
-                                                        "type": "string",
-                                                        "description": "ID of the stash whose row data should be used to populate the table, e.g., `20240215-job32`"
-                                                    }
-                                                },
-                                                "description": "A single reference to a stash whose row data should be used to populate the table",
-                                                "required": [
-                                                    "$stashID"
-                                                ],
-                                                "additionalProperties": false
+                                                "fullName": "Alicia Hines",
+                                                "ageInYears": 34,
+                                                "hiredOn": "2023-01-015"
                                             }
                                         ]
+                                    },
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "$stashID": {
+                                                "type": "string",
+                                                "description": "ID of the stash whose row data should be used to populate the table, e.g., `20240215-job32`"
+                                            }
+                                        },
+                                        "description": "A single reference to a stash whose row data should be used to populate the table",
+                                        "required": [
+                                            "$stashID"
+                                        ],
+                                        "additionalProperties": false
                                     }
-                                },
-                                "required": [
-                                    "rows"
-                                ],
-                                "additionalProperties": false
+                                ]
                             }
                         }
                     }
@@ -524,37 +515,28 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "data": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "object",
-                                            "additionalProperties": {}
-                                        },
-                                        "description": "An array of data to add to the stash. The data should conform to the requirements of the endpoint where the stash is intended to be used.\n\nFor instance, to reference row data, each entry should have the same schema as the table it is being added to.\n\n```json\n[\n\t{\"Name\": \"Alex\", \"Age\": 30, \"Birthday\": \"2024-07-03T10:24:08.285Z\"},\n\t{\"Name\": \"TomTom\", \"Age\": 26, \"Birthday\": \"2024-07-03T10:27:43.265Z\"},\n\t{\"Name\": \"Foo Bar\", \"Age\": 5}\n]\n```",
-                                        "example": [
-                                            {
-                                                "Name": "Alex",
-                                                "Age": 30,
-                                                "Birthday": "2024-07-03T10:24:08.285Z"
-                                            },
-                                            {
-                                                "Name": "TomTom",
-                                                "Age": 26,
-                                                "Birthday": "2024-07-03T10:27:43.265Z"
-                                            },
-                                            {
-                                                "Name": "Foo Bar",
-                                                "Age": 5
-                                            }
-                                        ]
-                                    }
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "additionalProperties": {}
                                 },
-                                "required": [
-                                    "data"
-                                ],
-                                "additionalProperties": false
+                                "description": "An array of data to add to the stash. The data should conform to the requirements of the endpoint where the stash is intended to be used.\n\nFor instance, to reference row data, each entry should have the same schema as the table it is being added to.\n\n```json\n[\n\t{\"Name\": \"Alex\", \"Age\": 30, \"Birthday\": \"2024-07-03T10:24:08.285Z\"},\n\t{\"Name\": \"TomTom\", \"Age\": 26, \"Birthday\": \"2024-07-03T10:27:43.265Z\"},\n\t{\"Name\": \"Foo Bar\", \"Age\": 5}\n]\n```",
+                                "example": [
+                                    {
+                                        "Name": "Alex",
+                                        "Age": 30,
+                                        "Birthday": "2024-07-03T10:24:08.285Z"
+                                    },
+                                    {
+                                        "Name": "TomTom",
+                                        "Age": 26,
+                                        "Birthday": "2024-07-03T10:27:43.265Z"
+                                    },
+                                    {
+                                        "Name": "Foo Bar",
+                                        "Age": 5
+                                    }
+                                ]
                             }
                         }
                     }
