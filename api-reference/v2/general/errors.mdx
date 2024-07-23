@@ -10,6 +10,7 @@ All error responses will follow the following format with a top-level `error` ob
 ```json
 {
   "error": {
+    "type": "<error type>",
     "message": "<error message>"
   }
 }
@@ -28,6 +29,7 @@ curl --request GET \
 ```json
 {
   "error": {
+    "type": "request_error",
     "message": "API key not found, or duplicate IN****ID"
   }
 }
