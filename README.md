@@ -45,6 +45,8 @@ api-reference/v2/stashing/introduction.mdx
 
 Once changes are made and confirmed in your local environment, you can commit your changes to Github. This will automatically trigger a build of the documentation and deploy to the live environment at: https://glide.mintlify.app/
 
+If the build fails with a Mintlify error that you are not an "editor", you will need to be added to our Mintlify team. @rwdaigle can do this for you.
+
 ## Postman
 
 We use Postman to deliver executable endpoints of the Glide API to the public (in addition to what's available in the documentation). The Postman collection should be kept up to date with the latest endpoints and documentation. Unfortunately, this is a manual process for now.
