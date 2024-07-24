@@ -21,7 +21,7 @@
         "callbacks": {}
     },
     "paths": {
-        "/api/me": {
+        "/me": {
             "get": {
                 "responses": {
                     "200": {
@@ -106,7 +106,7 @@
                 }
             }
         },
-        "/api/apps": {
+        "/apps": {
             "get": {
                 "responses": {
                     "200": {
@@ -201,7 +201,7 @@
                 }
             }
         },
-        "/api/apps/{appID}/tables": {
+        "/apps/{appID}/tables": {
             "get": {
                 "responses": {
                     "200": {
@@ -307,7 +307,7 @@
                 ]
             }
         },
-        "/api/apps/{appID}/tables/{tableID}": {
+        "/apps/{appID}/tables/{tableID}": {
             "get": {
                 "responses": {
                     "200": {
@@ -442,7 +442,7 @@
                 ]
             }
         },
-        "/api/apps/{appID}/tables/{tableID}/schema": {
+        "/apps/{appID}/tables/{tableID}/schema": {
             "get": {
                 "responses": {
                     "200": {
@@ -577,7 +577,7 @@
                 ]
             }
         },
-        "/api/apps/{appID}/tables/{tableID}/rows": {
+        "/apps/{appID}/tables/{tableID}/rows": {
             "get": {
                 "responses": {
                     "200": {
@@ -952,7 +952,7 @@
                 ]
             }
         },
-        "/api/apps/{appID}/tables/{tableID}/rows/{rowID}": {
+        "/apps/{appID}/tables/{tableID}/rows/{rowID}": {
             "get": {
                 "responses": {
                     "200": {
@@ -1288,7 +1288,7 @@
                 ]
             }
         },
-        "/api/tables": {
+        "/tables": {
             "get": {
                 "responses": {
                     "200": {
@@ -1527,7 +1527,7 @@
                 }
             }
         },
-        "/api/tables/{tableID}": {
+        "/tables/{tableID}": {
             "put": {
                 "responses": {
                     "200": {
@@ -1665,7 +1665,7 @@
                 }
             }
         },
-        "/api/tables/{tableID}/rows": {
+        "/tables/{tableID}/rows": {
             "post": {
                 "responses": {
                     "200": {
@@ -1821,7 +1821,7 @@
                 }
             }
         },
-        "/api/stashes": {
+        "/stashes": {
             "post": {
                 "responses": {
                     "200": {
@@ -1922,7 +1922,7 @@
                 }
             }
         },
-        "/api/stashes/{stashID}/{serial}": {
+        "/stashes/{stashID}/{serial}": {
             "post": {
                 "responses": {
                     "200": {
@@ -2035,7 +2035,7 @@
                 }
             }
         },
-        "/api/stashes/{stashID}": {
+        "/stashes/{stashID}": {
             "delete": {
                 "responses": {
                     "200": {
@@ -2128,11 +2128,11 @@
     "servers": [
         {
             "description": "Production",
-            "url": "https://functions.prod.internal.glideapps.com"
+            "url": "https://api.glideapps.com"
         },
         {
             "description": "Staging",
-            "url": "https://functions.staging.internal.glideapps.com"
+            "url": "https://api.staging.glideapps.com"
         }
     ]
 }

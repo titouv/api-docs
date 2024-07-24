@@ -22,7 +22,7 @@
         "callbacks": {}
     },
     "paths": {
-        "/api/tables": {
+        "/tables": {
             "get": {
                 "responses": {
                     "200": {
@@ -234,7 +234,7 @@
                 }
             }
         },
-        "/api/tables/{tableID}": {
+        "/tables/{tableID}": {
             "put": {
                 "responses": {
                     "200": {
@@ -372,7 +372,7 @@
                 }
             }
         },
-        "/api/tables/{tableID}/rows": {
+        "/tables/{tableID}/rows": {
             "post": {
                 "responses": {
                     "200": {
@@ -472,7 +472,7 @@
                 }
             }
         },
-        "/api/stashes/{stashID}/{serial}": {
+        "/stashes/{stashID}/{serial}": {
             "post": {
                 "responses": {
                     "200": {
@@ -553,7 +553,7 @@
     "servers": [
         {
             "description": "Production",
-            "url": "https://functions.prod.internal.glideapps.com"
+            "url": "https://api.glideapps.com"
         }
     ]
 }
