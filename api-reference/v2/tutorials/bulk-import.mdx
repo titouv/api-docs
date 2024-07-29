@@ -1,9 +1,9 @@
 ---
 title: Bulk Import
-description: 'Importing large datasets into a Glide Big Table'
+description: 'Importing large datasets into a Big Table'
 ---
 
-When importing large datasets into a Glide Big Table it is necessary to upload the data in stages. This eliminates the volatility of long-running requests and allows for higher performance by parallelizing the upload process. This process is called "stashing".
+When importing large datasets into a Big Table it is necessary to upload the data in stages. This eliminates the volatility of long-running requests and allows for higher performance by parallelizing the upload process. This process is called "stashing".
 
 <Tip>
   Please read our [introduction to stashing](/api-reference/v2/stashing/introduction) to understand how stashing works before looking at bulk imports specifically.
@@ -71,7 +71,7 @@ As an example, the following [stash](/api-reference/v2/stashing/post-stashes-ser
     </Tab>
 </Tabs>
 
-<Note>The trailing parameters of `1` and `2` in the request path are the serial ids which distinguish and order the two uploads within the stash.</Note>
+<Note>The trailing parameters of `1` and `2` in the request path are the serial IDs, which distinguish and order the two uploads within the stash.</Note>
 
 ## Finalize Import
 
