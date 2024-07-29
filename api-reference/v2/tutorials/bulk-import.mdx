@@ -45,28 +45,24 @@ As an example, the following [stash](/api-reference/v2/stashing/post-stashes-ser
 <Tabs>
     <Tab title="POST /stashes/20240501-import/1">
         ```json
-        {
-            "data": [
-                {
-                    "Name": "Alex",
-                    "Age": 30,
+        [
+            {
+                "Name": "Alex",
+                "Age": 30,
                     "Birthday": "2024-07-03T10:24:08.285Z"
-                }
-            ]
-        }
+            }
+        ]
         ```
     </Tab>
     <Tab title="POST /stashes/20240501-import/2">
         ```json
-        {
-            "data": [
+        [
                 {
                     "Name": "TomTom",
                     "Age": 26,
                     "Birthday": "2024-07-03T10:27:43.265Z"
                 }
-            ]
-        }
+        ]
         ```
     </Tab>
 </Tabs>
@@ -99,12 +95,9 @@ To add data to an existing table you can use the [add rows to table](/api-refere
 
 ```json
 {
-    "rows": {
-        "$stashID": "20240501-import"
-    }
+    "$stashID": "20240501-import"
 }
 ```
-
 
 ### Overwrite Table
 
@@ -112,8 +105,6 @@ To reset an existing table's data you can use the [overwrite table](/api-referen
 
 ```json
 {
-    "rows": {
-        "$stashID": "20240501-import"
-    }
+    "$stashID": "20240501-import"
 }
 ```
