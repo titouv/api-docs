@@ -13,5 +13,6 @@ jobs:
                 mode: maximum
                 count: 0
                 labels: "blocked:.*"
+                use_regex: true
                 add_comment: true
                 message: "This PR is being prevented from merging because it has one or more of these labels applied: {{ applied }}. "
