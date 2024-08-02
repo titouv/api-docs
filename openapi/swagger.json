@@ -14,7 +14,8 @@
     "securitySchemes": {
       "BearerAuth": {
         "type": "http",
-        "scheme": "bearer"
+        "scheme": "bearer",
+        "description": "Bearer authentication header of the form Bearer `<token>`, where `<token>` is your [auth token](/api-reference/v2/general/authentication)."
       }
     },
     "links": {},
@@ -37,10 +38,14 @@
                         "type": "object",
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "ID of the table, e.g., `2a1bad8b-cf7c-44437-b8c1-e3782df6`",
+                            "example": "2a1bad8b-cf7c-44437-b8c1-e3782df6"
                           },
                           "name": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Name of the table, e.g., `Invoices`",
+                            "example": "Invoices"
                           }
                         },
                         "required": [
@@ -48,7 +53,8 @@
                           "name"
                         ],
                         "additionalProperties": false
-                      }
+                      },
+                      "description": "A collection of table objects, each with `id` and `name`"
                     }
                   },
                   "required": [
@@ -91,7 +97,8 @@
               }
             }
           }
-        }
+        },
+        "description": "Gets all Big Tables in the current team"
       },
       "post": {
         "responses": {
@@ -107,14 +114,19 @@
                       "properties": {
                         "tableID": {
                           "type": "string",
-                          "description": "ID of the created table"
+                          "description": "ID of the table, e.g., `2a1bad8b-cf7c-44437-b8c1-e3782df6`",
+                          "example": "2a1bad8b-cf7c-44437-b8c1-e3782df6"
                         },
                         "rowIDs": {
                           "type": "array",
                           "items": {
                             "type": "string"
                           },
-                          "description": "Row IDs of added rows"
+                          "description": "Row IDs of added rows, e.g., \n\n```json\n[\n\t\"2a1bad8b-cf7c-44437-b8c1-e3782df6\",\n\t\"93a19-cf7c-44437-b8c1-e9acbbb\"\n]\n```",
+                          "example": [
+                            "2a1bad8b-cf7c-44437-b8c1-e3782df6",
+                            "93a19-cf7c-44437-b8c1-e9acbbb"
+                          ]
                         }
                       },
                       "required": [
@@ -203,35 +215,20 @@
             }
           }
         },
-        "operationId": "Create table",
+        "description": "Creates a new Big Table",
         "parameters": [
           {
             "name": "onSchemaError",
             "in": "query",
             "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "description": "Abort the entire operation and return an error",
-                  "enum": [
-                    "abort"
-                  ]
-                },
-                {
-                  "type": "string",
-                  "description": "Ignore the columns that caused the error, and do not import any data from them",
-                  "enum": [
-                    "dropColumns"
-                  ]
-                },
-                {
-                  "type": "string",
-                  "description": "Update the schema as needed to add any missing columns or widen the data types of existing columns, and then import the data from them",
-                  "enum": [
-                    "updateSchema"
-                  ]
-                }
-              ]
+              "type": "string",
+              "enum": [
+                "abort",
+                "dropColumns",
+                "updateSchema"
+              ],
+              "description": "The action to take when the passed data does not match the table schema:\n\n- `abort`: Abort the entire operation and return an error.\n- `dropColumns`: Ignore the data that caused the error, and do not import those columns in the affected rows.\n- `updateSchema`: Update the schema as needed to add any missing columns or widen the data types of existing columns, and then import the data from them.",
+              "example": "updateSchema"
             },
             "required": false
           }
@@ -243,12 +240,103 @@
                 "type": "object",
                 "properties": {
                   "name": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Name of the table, e.g., `Invoices`",
+                    "example": "Invoices"
                   },
                   "schema": {
                     "type": "object",
-                    "properties": {},
-                    "additionalProperties": false
+                    "properties": {
+                      "columns": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "Internal ID of the column, e.g., `fullName`. This value cannot be changed once created.",
+                              "example": "fullName"
+                            },
+                            "displayName": {
+                              "type": "string",
+                              "description": "Human-readable display name of the column, e.g., `Full Name`. Can be modified once created.",
+                              "example": "Full Name"
+                            },
+                            "type": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "string",
+                                    "number",
+                                    "boolean",
+                                    "uri",
+                                    "dateTime",
+                                    "json"
+                                  ]
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "kind": {
+                                      "type": "string",
+                                      "enum": [
+                                        "string",
+                                        "number",
+                                        "boolean",
+                                        "uri",
+                                        "dateTime",
+                                        "json"
+                                      ]
+                                    }
+                                  },
+                                  "required": [
+                                    "kind"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              ],
+                              "description": "The type of the column"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "type"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "description": "A collection of column definitions, in the order that they are to be displayed in the table"
+                      }
+                    },
+                    "required": [
+                      "columns"
+                    ],
+                    "additionalProperties": false,
+                    "description": "The schema of the table as a collection of column definitions",
+                    "example": {
+                      "columns": [
+                        {
+                          "id": "fullName",
+                          "displayName": "Full Name",
+                          "type": "string"
+                        },
+                        {
+                          "id": "invoiceDate",
+                          "displayName": "Invoice Date",
+                          "type": "dateTime"
+                        },
+                        {
+                          "id": "totalAmount",
+                          "displayName": "Total",
+                          "type": "number"
+                        },
+                        {
+                          "id": "amountPaid",
+                          "displayName": "Paid",
+                          "type": "number"
+                        }
+                      ]
+                    }
                   },
                   "rows": {
                     "anyOf": [
@@ -257,19 +345,37 @@
                         "items": {
                           "type": "object",
                           "additionalProperties": {}
-                        }
+                        },
+                        "description": "A collection of row objects conforming to the schema of the table where keys are the column IDs and values are the column values:\n\n```json\n[\n\t{\n\t\t\"fullName\": \"Alex Bard\",\n\t\t\"invoiceDate\": \"2024-07-29T14:04:15.561Z\",\n\t\t\"totalAmount\": 34.50,\n\t\t\"amountPaid\": 0\n\t},\n\t{\n\t\t\"fullName\": \"Alicia Hines\",\n\t\t\"invoiceDate\": \"2023-06-15T10:30:00.000Z\",\n\t\t\"totalAmount\": 50.75,\n\t\t\"amountPaid\": 20\n\t}\n]\n```",
+                        "example": [
+                          {
+                            "fullName": "Alex Bard",
+                            "invoiceDate": "2024-07-29T14:04:15.561Z",
+                            "totalAmount": 34.5,
+                            "amountPaid": 0
+                          },
+                          {
+                            "fullName": "Alicia Hines",
+                            "invoiceDate": "2023-06-15T10:30:00.000Z",
+                            "totalAmount": 50.75,
+                            "amountPaid": 20
+                          }
+                        ]
                       },
                       {
                         "type": "object",
                         "properties": {
                           "$stashID": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "ID of the stash whose data should be used",
+                            "example": "20240215-job32"
                           }
                         },
                         "required": [
                           "$stashID"
                         ],
-                        "additionalProperties": false
+                        "additionalProperties": false,
+                        "description": "A single reference to a [stash](/api-reference/v2/stashing) whose data should be used"
                       }
                     ]
                   }
@@ -304,7 +410,11 @@
                           "items": {
                             "type": "string"
                           },
-                          "description": "Row IDs of added rows"
+                          "description": "Row IDs of added rows, e.g., \n\n```json\n[\n\t\"2a1bad8b-cf7c-44437-b8c1-e3782df6\",\n\t\"93a19-cf7c-44437-b8c1-e9acbbb\"\n]\n```",
+                          "example": [
+                            "2a1bad8b-cf7c-44437-b8c1-e3782df6",
+                            "93a19-cf7c-44437-b8c1-e9acbbb"
+                          ]
                         }
                       },
                       "required": [
@@ -428,13 +538,15 @@
             }
           }
         },
-        "operationId": "Overwrite table",
+        "description": "Overwrites a Big Table with new schema and/or data",
         "parameters": [
           {
             "name": "tableID",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "ID of the table, e.g., `2a1bad8b-cf7c-44437-b8c1-e3782df6`",
+              "example": "2a1bad8b-cf7c-44437-b8c1-e3782df6"
             },
             "required": true
           },
@@ -442,29 +554,14 @@
             "name": "onSchemaError",
             "in": "query",
             "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "description": "Abort the entire operation and return an error",
-                  "enum": [
-                    "abort"
-                  ]
-                },
-                {
-                  "type": "string",
-                  "description": "Ignore the columns that caused the error, and do not import any data from them",
-                  "enum": [
-                    "dropColumns"
-                  ]
-                },
-                {
-                  "type": "string",
-                  "description": "Update the schema as needed to add any missing columns or widen the data types of existing columns, and then import the data from them",
-                  "enum": [
-                    "updateSchema"
-                  ]
-                }
-              ]
+              "type": "string",
+              "enum": [
+                "abort",
+                "dropColumns",
+                "updateSchema"
+              ],
+              "description": "The action to take when the passed data does not match the table schema:\n\n- `abort`: Abort the entire operation and return an error.\n- `dropColumns`: Ignore the data that caused the error, and do not import those columns in the affected rows.\n- `updateSchema`: Update the schema as needed to add any missing columns or widen the data types of existing columns, and then import the data from them.",
+              "example": "updateSchema"
             },
             "required": false
           }
@@ -477,8 +574,97 @@
                 "properties": {
                   "schema": {
                     "type": "object",
-                    "properties": {},
-                    "additionalProperties": false
+                    "properties": {
+                      "columns": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "Internal ID of the column, e.g., `fullName`. This value cannot be changed once created.",
+                              "example": "fullName"
+                            },
+                            "displayName": {
+                              "type": "string",
+                              "description": "Human-readable display name of the column, e.g., `Full Name`. Can be modified once created.",
+                              "example": "Full Name"
+                            },
+                            "type": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "string",
+                                    "number",
+                                    "boolean",
+                                    "uri",
+                                    "dateTime",
+                                    "json"
+                                  ]
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "kind": {
+                                      "type": "string",
+                                      "enum": [
+                                        "string",
+                                        "number",
+                                        "boolean",
+                                        "uri",
+                                        "dateTime",
+                                        "json"
+                                      ]
+                                    }
+                                  },
+                                  "required": [
+                                    "kind"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              ],
+                              "description": "The type of the column"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "type"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "description": "A collection of column definitions, in the order that they are to be displayed in the table"
+                      }
+                    },
+                    "required": [
+                      "columns"
+                    ],
+                    "additionalProperties": false,
+                    "description": "The schema of the table as a collection of column definitions",
+                    "example": {
+                      "columns": [
+                        {
+                          "id": "fullName",
+                          "displayName": "Full Name",
+                          "type": "string"
+                        },
+                        {
+                          "id": "invoiceDate",
+                          "displayName": "Invoice Date",
+                          "type": "dateTime"
+                        },
+                        {
+                          "id": "totalAmount",
+                          "displayName": "Total",
+                          "type": "number"
+                        },
+                        {
+                          "id": "amountPaid",
+                          "displayName": "Paid",
+                          "type": "number"
+                        }
+                      ]
+                    }
                   },
                   "rows": {
                     "anyOf": [
@@ -487,19 +673,37 @@
                         "items": {
                           "type": "object",
                           "additionalProperties": {}
-                        }
+                        },
+                        "description": "A collection of row objects conforming to the schema of the table where keys are the column IDs and values are the column values:\n\n```json\n[\n\t{\n\t\t\"fullName\": \"Alex Bard\",\n\t\t\"invoiceDate\": \"2024-07-29T14:04:15.561Z\",\n\t\t\"totalAmount\": 34.50,\n\t\t\"amountPaid\": 0\n\t},\n\t{\n\t\t\"fullName\": \"Alicia Hines\",\n\t\t\"invoiceDate\": \"2023-06-15T10:30:00.000Z\",\n\t\t\"totalAmount\": 50.75,\n\t\t\"amountPaid\": 20\n\t}\n]\n```",
+                        "example": [
+                          {
+                            "fullName": "Alex Bard",
+                            "invoiceDate": "2024-07-29T14:04:15.561Z",
+                            "totalAmount": 34.5,
+                            "amountPaid": 0
+                          },
+                          {
+                            "fullName": "Alicia Hines",
+                            "invoiceDate": "2023-06-15T10:30:00.000Z",
+                            "totalAmount": 50.75,
+                            "amountPaid": 20
+                          }
+                        ]
                       },
                       {
                         "type": "object",
                         "properties": {
                           "$stashID": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "ID of the stash whose data should be used",
+                            "example": "20240215-job32"
                           }
                         },
                         "required": [
                           "$stashID"
                         ],
-                        "additionalProperties": false
+                        "additionalProperties": false,
+                        "description": "A single reference to a [stash](/api-reference/v2/stashing) whose data should be used"
                       }
                     ]
                   }
@@ -533,7 +737,11 @@
                           "items": {
                             "type": "string"
                           },
-                          "description": "Row IDs of added rows"
+                          "description": "Row IDs of added rows, e.g., \n\n```json\n[\n\t\"2a1bad8b-cf7c-44437-b8c1-e3782df6\",\n\t\"93a19-cf7c-44437-b8c1-e9acbbb\"\n]\n```",
+                          "example": [
+                            "2a1bad8b-cf7c-44437-b8c1-e3782df6",
+                            "93a19-cf7c-44437-b8c1-e9acbbb"
+                          ]
                         }
                       },
                       "required": [
@@ -656,13 +864,15 @@
             }
           }
         },
-        "operationId": "Add rows to table",
+        "description": "Adds rows to a Big Table",
         "parameters": [
           {
             "name": "tableID",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "ID of the table, e.g., `2a1bad8b-cf7c-44437-b8c1-e3782df6`",
+              "example": "2a1bad8b-cf7c-44437-b8c1-e3782df6"
             },
             "required": true
           },
@@ -670,29 +880,14 @@
             "name": "onSchemaError",
             "in": "query",
             "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "description": "Abort the entire operation and return an error",
-                  "enum": [
-                    "abort"
-                  ]
-                },
-                {
-                  "type": "string",
-                  "description": "Ignore the columns that caused the error, and do not import any data from them",
-                  "enum": [
-                    "dropColumns"
-                  ]
-                },
-                {
-                  "type": "string",
-                  "description": "Update the schema as needed to add any missing columns or widen the data types of existing columns, and then import the data from them",
-                  "enum": [
-                    "updateSchema"
-                  ]
-                }
-              ]
+              "type": "string",
+              "enum": [
+                "abort",
+                "dropColumns",
+                "updateSchema"
+              ],
+              "description": "The action to take when the passed data does not match the table schema:\n\n- `abort`: Abort the entire operation and return an error.\n- `dropColumns`: Ignore the data that caused the error, and do not import those columns in the affected rows.\n- `updateSchema`: Update the schema as needed to add any missing columns or widen the data types of existing columns, and then import the data from them.",
+              "example": "updateSchema"
             },
             "required": false
           }
@@ -707,19 +902,37 @@
                     "items": {
                       "type": "object",
                       "additionalProperties": {}
-                    }
+                    },
+                    "description": "A collection of row objects conforming to the schema of the table where keys are the column IDs and values are the column values:\n\n```json\n[\n\t{\n\t\t\"fullName\": \"Alex Bard\",\n\t\t\"invoiceDate\": \"2024-07-29T14:04:15.561Z\",\n\t\t\"totalAmount\": 34.50,\n\t\t\"amountPaid\": 0\n\t},\n\t{\n\t\t\"fullName\": \"Alicia Hines\",\n\t\t\"invoiceDate\": \"2023-06-15T10:30:00.000Z\",\n\t\t\"totalAmount\": 50.75,\n\t\t\"amountPaid\": 20\n\t}\n]\n```",
+                    "example": [
+                      {
+                        "fullName": "Alex Bard",
+                        "invoiceDate": "2024-07-29T14:04:15.561Z",
+                        "totalAmount": 34.5,
+                        "amountPaid": 0
+                      },
+                      {
+                        "fullName": "Alicia Hines",
+                        "invoiceDate": "2023-06-15T10:30:00.000Z",
+                        "totalAmount": 50.75,
+                        "amountPaid": 20
+                      }
+                    ]
                   },
                   {
                     "type": "object",
                     "properties": {
                       "$stashID": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "ID of the stash whose data should be used",
+                        "example": "20240215-job32"
                       }
                     },
                     "required": [
                       "$stashID"
                     ],
-                    "additionalProperties": false
+                    "additionalProperties": false,
+                    "description": "A single reference to a [stash](/api-reference/v2/stashing) whose data should be used"
                   }
                 ]
               }
@@ -817,7 +1030,8 @@
                 "schema": {
                   "type": "object",
                   "properties": {},
-                  "additionalProperties": false
+                  "additionalProperties": false,
+                  "description": "A 200 HTTP response code indicates that the data was successfully stashed into the stash with the given stash ID."
                 }
               }
             }
@@ -855,13 +1069,15 @@
             }
           }
         },
-        "operationId": "Add rows to stash",
+        "description": "Adds data to a stash",
         "parameters": [
           {
             "name": "stashID",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "ID of the stash to add data to, e.g., `20240215-job32`",
+              "example": "20240215-job32"
             },
             "required": true
           },
@@ -869,7 +1085,8 @@
             "name": "serial",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Serial identifier of the chunk of data to add to the stash. Chunks will be assembled in the sort order of their serials, so utilize ordered identifiers for each chunk if a specific ordering of data is required, e.g., `1`, `2`, etc...\nIf the order of data is not important, random, but unique, values can be used, e.g., `c2a4567`."
             },
             "required": true
           }
@@ -882,7 +1099,22 @@
                 "items": {
                   "type": "object",
                   "additionalProperties": {}
-                }
+                },
+                "description": "A collection of row objects conforming to the schema of the table where keys are the column IDs and values are the column values:\n\n```json\n[\n\t{\n\t\t\"fullName\": \"Alex Bard\",\n\t\t\"invoiceDate\": \"2024-07-29T14:04:15.561Z\",\n\t\t\"totalAmount\": 34.50,\n\t\t\"amountPaid\": 0\n\t},\n\t{\n\t\t\"fullName\": \"Alicia Hines\",\n\t\t\"invoiceDate\": \"2023-06-15T10:30:00.000Z\",\n\t\t\"totalAmount\": 50.75,\n\t\t\"amountPaid\": 20\n\t}\n]\n```",
+                "example": [
+                  {
+                    "fullName": "Alex Bard",
+                    "invoiceDate": "2024-07-29T14:04:15.561Z",
+                    "totalAmount": 34.5,
+                    "amountPaid": 0
+                  },
+                  {
+                    "fullName": "Alicia Hines",
+                    "invoiceDate": "2023-06-15T10:30:00.000Z",
+                    "totalAmount": 50.75,
+                    "amountPaid": 20
+                  }
+                ]
               }
             }
           }
@@ -899,7 +1131,8 @@
                 "schema": {
                   "type": "object",
                   "properties": {},
-                  "additionalProperties": false
+                  "additionalProperties": false,
+                  "description": "A 200 HTTP response code indicates that the stash with the given stash ID was successfully deleted."
                 }
               }
             }
@@ -937,13 +1170,15 @@
             }
           }
         },
-        "operationId": "Delete stash",
+        "description": "Deletes a stash and its data",
         "parameters": [
           {
             "name": "stashID",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "ID of the stash to delete, e.g., `20240215-job32`",
+              "example": "20240215-job32"
             },
             "required": true
           }
