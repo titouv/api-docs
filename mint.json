@@ -35,6 +35,7 @@
       "pages": [
         "api-reference/v2/apps/get-app",
         "api-reference/v2/apps/list-apps",
+        "api-reference/v2/apps/create-app",
         "api-reference/v2/apps/transfer-app"
       ]
     },
