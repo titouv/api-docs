@@ -49,6 +49,12 @@
       ]
     },
     {
+      "group": "Computations",
+      "pages": [
+        "api-reference/v2/computations/create-computation"
+      ]
+    },
+    {
       "group": "Screens",
       "pages": [
         "api-reference/v2/screens/list-screens",

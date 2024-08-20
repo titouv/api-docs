@@ -1,0 +1,26 @@
+---
+title: Create Computation
+openapi: post /computations
+---
+
+Create a new computation.
+
+```json
+  "schema": {
+    "columns": [
+      {
+        "id": "invoiceDate",
+        "displayName": "Invoice Date",
+        "type": {
+          "kind": "computation",
+          "id": "abc123"
+        }
+      },
+      {
+        "id": "totalAmount",
+        "displayName": "Total",
+        "type": "number"
+      },
+    ]
+  },
+```
